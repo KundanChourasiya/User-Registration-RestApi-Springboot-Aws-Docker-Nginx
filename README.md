@@ -232,7 +232,7 @@ URL: http://<public_ip>/swagger-ui/index.html
 
 ![image](https://github.com/user-attachments/assets/a5b1d20c-72c7-4b91-810d-eb1335ec9a10)
 
-21. Open your Postman tool and testing the Api, enter the URL with the port number, and submit some data to save it in the database.
+21. Open your Postman tool and test the Api, enter the URL with the port number, and submit some data to save it in the database.
 ![image](https://github.com/user-attachments/assets/66951e6b-f570-46d1-bf9d-2eb13e9b4471)
 
 
