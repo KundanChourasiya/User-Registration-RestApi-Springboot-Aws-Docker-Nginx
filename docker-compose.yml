@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+
+  nginx:
+    container_name: nginx_cont
+    build:
+      context: ./nginx
+    image: nginx
+    ports:
+      - "80:80"
+    networks:
+      - api-network
+    restart: always
+    depends_on:
+      - crud-api
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: crudapi
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./api-data:/var/lib/mysql
+    networks:
+      - api-network
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-uroot","-ptest"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: always
+
+  crud-api:
+    build: .
+    container_name: crud-api-v1
+    env_file:
+      - ".env"
+    ports:
+      - "8080:8080"
+    networks:
+      - api-network
+    depends_on:
+      - mysql
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    restart: always
+
+volumes:
+  api-data:
+
+networks:
+  api-network:
+    name: api-network
+    driver: bridge
