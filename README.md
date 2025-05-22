@@ -89,7 +89,8 @@ This guide covers the steps to:
 
     ```
 13. Create docker-compose file to build docker services.
-    Note: here we can use env file also for environment variable.
+
+    *Note*: here we can use env file also for environment variable.
      ```
      docker-compose.yml
      ```
